@@ -1,14 +1,8 @@
 'use client';
 
 import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { MultiSelect } from '@/components/ui/multi-select';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
 import { Label } from '@/components/ui/label';
 import { Separator } from '@/components/ui/separator';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -17,9 +11,15 @@ import { Input } from '@/components/ui/input';
 
 export default function WorkspacePage() {
   const [selectedValues, setSelectedValues] = useState([]);
+  const [redditPostUrl, setRedditPostUrl] = useState('');
+  const router = useRouter();
 
   const handleValueChange = (values) => {
     setSelectedValues(values);
+  };
+
+  const handleContinue = () => {
+    router.push('/dashboard/continue');
   };
 
   return (
@@ -30,7 +30,7 @@ export default function WorkspacePage() {
       {/* Form Container with relative positioning */}
       <div className="relative">
         <div className="flex flex-col items-center mt-12">
-          {/* 1) Shadcn dropdown */}
+          {/* 1) Reddit Post URL Input */}
           <div className="mb-4">
             <Label
               htmlFor="inputOne"
@@ -42,10 +42,13 @@ export default function WorkspacePage() {
               placeholder="Enter URL"
               id="inputOne"
               className="w-[520px] h-[39px]"
+              disabled={selectedValues.length > 0} // disable URL if subreddits are selected
+              value={redditPostUrl}
+              onChange={(e) => setRedditPostUrl(e.target.value)}
             />
           </div>
 
-          {/* 2) "Or" text with closer vertical spacing */}
+          {/* 2) "Or" text */}
           <div className="text-center text-gray-500 font-medium my-2">Or</div>
 
           {/* 3) MultiSelect */}
@@ -69,17 +72,18 @@ export default function WorkspacePage() {
               ]}
               onValueChange={handleValueChange}
               placeholder="Select subreddits"
-              maxCount={2} // Only show 2 badges before summarizing
-              animation={0.3} // Control bounce animation duration
+              maxCount={2}
+              animation={0.3}
               variant="default"
               className="w-[520px] h-[39px]"
+              disabled={redditPostUrl.trim().length > 0} // disable subreddits if URL has a value
             />
           </div>
 
-          {/* 4) Horizontal separator line, fainter and with extra vertical space */}
+          {/* 4) Horizontal separator */}
           <Separator className="w-[580px] mx-auto my-10 opacity-50" />
 
-          {/* 5) Another Shadcn dropdown */}
+          {/* 5) Username Input */}
           <div className="mb-4">
             <Label
               htmlFor="inputTwo"
@@ -94,7 +98,7 @@ export default function WorkspacePage() {
             />
           </div>
 
-          {/* 6) Shadcn checkbox (left aligned) with extra top spacing */}
+          {/* 6) Checkbox */}
           <div className="flex items-center mt-4 w-[520px]">
             <Checkbox id="placeholderCheckbox" />
             <Label
@@ -105,15 +109,16 @@ export default function WorkspacePage() {
             </Label>
           </div>
         </div>
-
-        {/* 7) Continue button positioned relative to the form container */}
-        <Button
-          variant="default"
-          className="text-md absolute bottom-0 right-0 translate-x-4 translate-y-[120px] w-[180px]"
-        >
-          Continue
-        </Button>
       </div>
+
+      {/* 7) Continue button */}
+      <Button
+        variant="default"
+        onClick={handleContinue}
+        className="text-lg fixed bottom-28 right-16 w-[200px] h-[45px]"
+      >
+        Continue
+      </Button>
     </div>
   );
 }

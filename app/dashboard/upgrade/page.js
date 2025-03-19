@@ -10,7 +10,7 @@ function UpgradePlans() {
 
   return (
     <div>
-      <div className="p-4">
+      <div className="p-6">
         <h2 className="font-medium text-3xl">Plans</h2>
         <p>Placeholder placeholder placeholder</p>
 
