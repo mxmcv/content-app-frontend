@@ -17,8 +17,8 @@ function SideBar() {
         {/* Removed UploadPdfDialog and PDF button */}
         <Link href="/dashboard">
           <div
-            className={`flex gap-2 items-center p-3 mt-5 hover:bg-slate-100 rounded-lg cursor-pointer ${
-              path === '/dashboard' && 'bg-slate-200'
+            className={`flex gap-2 items-center p-3 mt-5 hover:bg-gray-200 rounded-lg cursor-pointer ${
+              path === '/dashboard' && 'bg-gray-100'
             }`}
           >
             <Layout />
@@ -27,8 +27,8 @@ function SideBar() {
         </Link>
         <Link href="/dashboard/upgrade">
           <div
-            className={`flex gap-2 items-center p-3 mt-1 hover:bg-slate-100 rounded-lg cursor-pointer ${
-              path === '/dashboard/upgrade' && 'bg-slate-200'
+            className={`flex gap-2 items-center p-3 mt-1 hover:bg-gray-200 rounded-lg cursor-pointer ${
+              path === '/dashboard/upgrade' && 'bg-gray-100'
             }`}
           >
             <Shield />

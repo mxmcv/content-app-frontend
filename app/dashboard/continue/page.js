@@ -180,7 +180,7 @@ export default function ContinueWorkspacePage() {
       <Button
         variant="default"
         onClick={handleBack}
-        className="text-lg fixed bottom-28 left--16 w-[200px] h-[45px]"
+        className="text-lg fixed bottom-28 left--16 w-[200px] h-[45px] bg-gray-200 text-gray-800 hover:bg-gray-300 active:bg-gray-300 focus:bg-gray-300"
       >
         Back
       </Button>

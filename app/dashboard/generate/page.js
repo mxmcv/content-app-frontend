@@ -40,6 +40,7 @@ const fontMap = {
 };
 
 export default function ContinueWorkspacePage() {
+  const router = useRouter();
   const handleBack = () => {
     router.push('/dashboard/');
   };
@@ -53,34 +54,30 @@ export default function ContinueWorkspacePage() {
         <div className="flex flex-col items-center mt-12">
           <div className="relative w-[220px] h-[440px]">
             <img
-              src={`/images/${selectedGame}.png`}
+              src={`/images/subway-surfers.png`}
               alt="Gameplay Preview"
               className="w-full h-full object-contain"
             />
-
-            {/* Overlay text with dynamic font and color */}
-            <div
-              className={`
-                              absolute inset-0 
-                              flex items-center justify-center 
-                              text-xl
-                              ${fontMap[selectedFont]}
-                            `}
-              style={{ color: selectedFontColor }}
+          </div>
+          <div className="mt-12 flex space-x-6">
+            <Button
+              variant="default"
+              onClick={handleBack}
+              className="text-lg w-[200px] h-[45px] bg-gray-200 text-gray-800 hover:bg-gray-300 active:bg-gray-300 focus:bg-gray-300"
             >
-              Text
-            </div>
+              Exit
+            </Button>
+
+            <Button
+              variant="default"
+              onClick={handleBack}
+              className="text-lg w-[200px] h-[45px]"
+            >
+              Download
+            </Button>
           </div>
         </div>
       </div>
-      <Button
-        variant="default"
-        onClick={handleBack}
-        className="text-lg fixed bottom-28 left--16 w-[200px] h-[45px]"
-      >
-        Back
-      </Button>
-      ;
     </div>
   );
 }
