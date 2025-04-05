@@ -8,10 +8,11 @@ import { Separator } from "@/components/ui/separator";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { useAppContext } from "@/app/_context/AppContext";
 
 export default function WorkspacePage() {
   const [selectedValues, setSelectedValues] = useState([]);
-  const [redditPostUrl, setRedditPostUrl] = useState("");
+  const { redditPostUrl, setRedditPostUrl } = useAppContext();
   const router = useRouter();
 
   const handleValueChange = (values) => {

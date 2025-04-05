@@ -11,6 +11,7 @@ import {
   SelectContent,
   SelectItem,
 } from "@/components/ui/select";
+import { useAppContext } from "@/app/_context/AppContext";
 
 import localFont from "next/font/local";
 
@@ -44,6 +45,7 @@ export default function ContinueWorkspacePage() {
   const [selectedGame, setSelectedGame] = useState("subway-surfers");
   const [selectedFont, setSelectedFont] = useState("Poppins-Bold");
   const [selectedFontColor, setSelectedFontColor] = useState("white");
+  const { redditPostUrl } = useAppContext();
   const router = useRouter();
 
   const handleBackgroundChange = (value) => {
@@ -61,20 +63,17 @@ export default function ContinueWorkspacePage() {
     router.push("/dashboard/");
   };
   const handleGenerate = async () => {
-    // Create the responselist dynamically based on your component state
     const responselist = {
-      user: "Username", // You can update this if needed
-      story_data:
-        "https://www.reddit.com/r/fender/comments/1jr2hpr/strat_springs_squeaky/",
+      user: "Username", // We need this
+      story_data: redditPostUrl,
       video: selectedGame,
       color: selectedFontColor,
       font: selectedFont,
-      voice: "voice1", // You could also manage this state similarly
-      ai: true,
+      voice: "voice1", // We need this
+      ai: true, // We need this
     };
 
     try {
-      // Send a POST request to your Node server endpoint
       const response = await fetch("http://18.218.45.35:3001/generate", {
         method: "POST",
         headers: {
@@ -87,8 +86,7 @@ export default function ContinueWorkspacePage() {
         throw new Error("Network response was not ok");
       }
 
-      // If the file is returned, you can download it.
-      // Here, for example, we get a blob and create a temporary link.
+      // Will have to change this maybe
       const blob = await response.blob();
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement("a");
