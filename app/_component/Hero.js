@@ -1,6 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 function Hero() {
+  const [showDemo, setShowDemo] = useState(false);
+
+  const openDemo = (e) => {
+    e.preventDefault();
+    setShowDemo(true);
+  };
+
+  const closeDemo = () => {
+    setShowDemo(false);
+  };
+
   return (
     <div className="relative" id="home">
       <div className="relative pt-36 ml-auto">
@@ -24,7 +35,8 @@ function Hero() {
               </span>
             </a>
             <a
-              href="#"
+              href="/demo"
+              onClick={openDemo}
               className="relative flex h-11 w-full items-center justify-center px-6 before:absolute before:inset-0 before:rounded-full before:border before:border-transparent before:bg-primary/10 before:bg-gradient-to-b before:transition before:duration-300 hover:before:scale-105 active:duration-75 active:before:scale-95 dark:before:border-gray-700 dark:before:bg-gray-800 sm:w-max"
             >
               <span className="relative text-base font-semibold text-primary dark:text-white">
@@ -65,6 +77,33 @@ function Hero() {
           {/* End of text box updates */}
         </div>
       </div>
+
+      {/* Demo Video Modal */}
+      {showDemo && (
+        <div
+          onClick={closeDemo}
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            style={{ boxShadow: '0 4px 15px rgba(0, 0, 0, 0.2)' }}
+          >
+            <video
+              controls
+              autoPlay
+              style={{
+                width: '351px',
+                height: '622px',
+                display: 'block',
+                borderRadius: '5px',
+              }}
+            >
+              <source src="/videos/video-demo.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

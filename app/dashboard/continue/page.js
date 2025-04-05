@@ -89,20 +89,8 @@ export default function ContinueWorkspacePage() {
                       Subway Surfers
                     </SelectItem>
                     <SelectItem value="temple-run">Temple Run</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-
-              {/* Voice */}
-              <div>
-                <Label className="mb-2 block text-md font-medium">Voice</Label>
-                <Select>
-                  <SelectTrigger className="w-[280px] h-[39px]">
-                    <SelectValue placeholder="Select voice" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="female">Male</SelectItem>
-                    <SelectItem value="male">Female</SelectItem>
+                    <SelectItem value="minecraft">Minecraft</SelectItem>
+                    <SelectItem value="GTAV">GTA V</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -139,6 +127,19 @@ export default function ContinueWorkspacePage() {
                     <SelectItem value="red">Red</SelectItem>
                     <SelectItem value="yellow">Yellow</SelectItem>
                     <SelectItem value="pink">Pink</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div>
+                <Label className="mb-2 block text-md font-medium">Voice</Label>
+                <Select>
+                  <SelectTrigger className="w-[280px] h-[39px]">
+                    <SelectValue placeholder="Select voice" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="female">Male</SelectItem>
+                    <SelectItem value="male">Female</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
