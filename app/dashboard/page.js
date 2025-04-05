@@ -1,25 +1,26 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { MultiSelect } from '@/components/ui/multi-select';
-import { Label } from '@/components/ui/label';
-import { Separator } from '@/components/ui/separator';
-import { Checkbox } from '@/components/ui/checkbox';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
+import React, { useState } from "react";
+import { useRouter } from "next/navigation";
+import { MultiSelect } from "@/components/ui/multi-select";
+import { Label } from "@/components/ui/label";
+import { Separator } from "@/components/ui/separator";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 
 export default function WorkspacePage() {
   const [selectedValues, setSelectedValues] = useState([]);
-  const [redditPostUrl, setRedditPostUrl] = useState('');
+  const [redditPostUrl, setRedditPostUrl] = useState("");
   const router = useRouter();
 
   const handleValueChange = (values) => {
     setSelectedValues(values);
+    console.log(selectedValues);
   };
 
   const handleContinue = () => {
-    router.push('/dashboard/continue');
+    router.push("/dashboard/continue");
   };
 
   return (
@@ -62,13 +63,13 @@ export default function WorkspacePage() {
             <MultiSelect
               id="multiSelect"
               options={[
-                { label: 'AskReddit', value: 'optionA' },
-                { label: 'AmItheAsshole', value: 'optionB' },
-                { label: 'TrueOffMyChest', value: 'optionC' },
-                { label: 'entitledparents', value: 'optionD' },
-                { label: 'tifu', value: 'optionE' },
-                { label: 'relationship_advice', value: 'optionF' },
-                { label: 'pettyrevenge', value: 'optionG' },
+                { label: "AskReddit", value: "optionA" },
+                { label: "AmItheAsshole", value: "optionB" },
+                { label: "TrueOffMyChest", value: "optionC" },
+                { label: "entitledparents", value: "optionD" },
+                { label: "tifu", value: "optionE" },
+                { label: "relationship_advice", value: "optionF" },
+                { label: "pettyrevenge", value: "optionG" },
               ]}
               onValueChange={handleValueChange}
               placeholder="Select subreddits"

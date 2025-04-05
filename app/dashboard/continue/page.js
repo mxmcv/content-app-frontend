@@ -1,49 +1,49 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { Button } from '@/components/ui/button';
-import { Label } from '@/components/ui/label';
+import React, { useState } from "react";
+import { useRouter } from "next/navigation";
+import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
 import {
   Select,
   SelectTrigger,
   SelectValue,
   SelectContent,
   SelectItem,
-} from '@/components/ui/select';
+} from "@/components/ui/select";
 
-import localFont from 'next/font/local';
+import localFont from "next/font/local";
 
 const poppinsBold = localFont({
-  src: '../../fonts/Poppins-Bold.ttf', // Adjust path as needed
-  display: 'swap',
-  variable: '--font-poppinsbold',
+  src: "../../fonts/Poppins-Bold.ttf", // Adjust path as needed
+  display: "swap",
+  variable: "--font-poppinsbold",
 });
 
 const anton = localFont({
-  src: '../../fonts/anton.ttf',
-  display: 'swap',
-  variable: '--font-anton',
+  src: "../../fonts/anton.ttf",
+  display: "swap",
+  variable: "--font-anton",
 });
 
 const vagabondfed = localFont({
-  src: '../../fonts/Vagabondfed.ttf',
-  display: 'swap',
-  variable: '--font-vagabondfed',
+  src: "../../fonts/Vagabondfed.ttf",
+  display: "swap",
+  variable: "--font-vagabondfed",
 });
 
 // Map font names to their corresponding class names
 const fontMap = {
-  'Poppins-Bold': poppinsBold.className,
+  "Poppins-Bold": poppinsBold.className,
   Anton: anton.className,
   Vagabondfed: vagabondfed.className,
 };
 
 export default function ContinueWorkspacePage() {
   // Default states
-  const [selectedGame, setSelectedGame] = useState('subway-surfers');
-  const [selectedFont, setSelectedFont] = useState('Poppins-Bold');
-  const [selectedFontColor, setSelectedFontColor] = useState('white');
+  const [selectedGame, setSelectedGame] = useState("subway-surfers");
+  const [selectedFont, setSelectedFont] = useState("Poppins-Bold");
+  const [selectedFontColor, setSelectedFontColor] = useState("white");
   const router = useRouter();
 
   const handleBackgroundChange = (value) => {
@@ -58,10 +58,48 @@ export default function ContinueWorkspacePage() {
     setSelectedFontColor(value);
   };
   const handleBack = () => {
-    router.push('/dashboard/');
+    router.push("/dashboard/");
   };
-  const handleGenerate = () => {
-    router.push('/dashboard/generate/');
+  const handleGenerate = async () => {
+    // Create the responselist dynamically based on your component state
+    const responselist = {
+      user: "Username", // You can update this if needed
+      story_data:
+        "https://www.reddit.com/r/fender/comments/1jr2hpr/strat_springs_squeaky/",
+      video: selectedGame,
+      color: selectedFontColor,
+      font: selectedFont,
+      voice: "voice1", // You could also manage this state similarly
+      ai: true,
+    };
+
+    try {
+      // Send a POST request to your Node server endpoint
+      const response = await fetch("http://127.0.0.1:3001/generate", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(responselist),
+      });
+
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+
+      // If the file is returned, you can download it.
+      // Here, for example, we get a blob and create a temporary link.
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "video.mp4";
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+    } catch (error) {
+      console.error("Error generating video:", error);
+    }
   };
 
   return (
