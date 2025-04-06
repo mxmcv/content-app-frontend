@@ -1,49 +1,51 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { Button } from '@/components/ui/button';
-import { Label } from '@/components/ui/label';
+import React, { useState } from "react";
+import { useRouter } from "next/navigation";
+import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
 import {
   Select,
   SelectTrigger,
   SelectValue,
   SelectContent,
   SelectItem,
-} from '@/components/ui/select';
+} from "@/components/ui/select";
+import { useAppContext } from "@/app/_context/AppContext";
 
-import localFont from 'next/font/local';
+import localFont from "next/font/local";
 
 const poppinsBold = localFont({
-  src: '../../fonts/Poppins-Bold.ttf', // Adjust path as needed
-  display: 'swap',
-  variable: '--font-poppinsbold',
+  src: "../../fonts/Poppins-Bold.ttf", // Adjust path as needed
+  display: "swap",
+  variable: "--font-poppinsbold",
 });
 
 const anton = localFont({
-  src: '../../fonts/anton.ttf',
-  display: 'swap',
-  variable: '--font-anton',
+  src: "../../fonts/anton.ttf",
+  display: "swap",
+  variable: "--font-anton",
 });
 
 const vagabondfed = localFont({
-  src: '../../fonts/Vagabondfed.ttf',
-  display: 'swap',
-  variable: '--font-vagabondfed',
+  src: "../../fonts/Vagabondfed.ttf",
+  display: "swap",
+  variable: "--font-vagabondfed",
 });
 
 // Map font names to their corresponding class names
 const fontMap = {
-  'Poppins-Bold': poppinsBold.className,
+  "Poppins-Bold": poppinsBold.className,
   Anton: anton.className,
   Vagabondfed: vagabondfed.className,
 };
 
 export default function ContinueWorkspacePage() {
   // Default states
-  const [selectedGame, setSelectedGame] = useState('subway-surfers');
-  const [selectedFont, setSelectedFont] = useState('Poppins-Bold');
-  const [selectedFontColor, setSelectedFontColor] = useState('white');
+  const [selectedGame, setSelectedGame] = useState("subway-surfers");
+  const [selectedFont, setSelectedFont] = useState("Poppins-Bold");
+  const [selectedFontColor, setSelectedFontColor] = useState("white");
+  const { redditPostUrl } = useAppContext();
   const router = useRouter();
 
   const handleBackgroundChange = (value) => {
@@ -58,10 +60,44 @@ export default function ContinueWorkspacePage() {
     setSelectedFontColor(value);
   };
   const handleBack = () => {
-    router.push('/dashboard/');
+    router.push("/dashboard/");
   };
-  const handleGenerate = () => {
-    router.push('/dashboard/generate/');
+  const handleGenerate = async () => {
+    const responselist = {
+      user: "Username", // We need this
+      story_data: redditPostUrl,
+      video: selectedGame,
+      color: selectedFontColor,
+      font: selectedFont,
+      voice: "voice1", // We need this
+      ai: true, // We need this
+    };
+
+    try {
+      const response = await fetch("http://18.218.45.35:3001/generate", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(responselist),
+      });
+
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+
+      // Will have to change this maybe
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "video.mp4";
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+    } catch (error) {
+      console.error("Error generating video:", error);
+    }
   };
 
   return (
