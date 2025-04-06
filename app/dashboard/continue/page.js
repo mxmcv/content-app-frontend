@@ -67,7 +67,9 @@ export default function ContinueWorkspacePage() {
   const { getToken } = useAuth();
 
   const handleGenerate = async () => {
-    const token = await getToken({ template: "integration_default" });
+    const token = await getToken();
+    // For debugging
+    console.log(token);
     const responselist = {
       user: "Username", // We need this
       story_data: redditPostUrl,
@@ -79,7 +81,7 @@ export default function ContinueWorkspacePage() {
     };
 
     try {
-      const response = await fetch("http://18.218.45.35:3001/generate", {
+      const response = await fetch("http://127.0.0.1:3001/generate", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
