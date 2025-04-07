@@ -1,18 +1,19 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { MultiSelect } from '@/components/ui/multi-select';
-import { Label } from '@/components/ui/label';
-import { Separator } from '@/components/ui/separator';
-import { Checkbox } from '@/components/ui/checkbox';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { useAppContext } from '@/app/_context/AppContext';
+import React, { useState } from "react";
+import { useRouter } from "next/navigation";
+import { MultiSelect } from "@/components/ui/multi-select";
+import { Label } from "@/components/ui/label";
+import { Separator } from "@/components/ui/separator";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { useAppContext } from "@/app/_context/AppContext";
 
 export default function WorkspacePage() {
   const [selectedValues, setSelectedValues] = useState([]);
-  const { redditPostUrl, setRedditPostUrl } = useAppContext();
+  const { redditPostUrl, setRedditPostUrl, username, setUsername } =
+    useAppContext();
   const router = useRouter();
 
   const handleValueChange = (values) => {
@@ -21,7 +22,7 @@ export default function WorkspacePage() {
   };
 
   const handleContinue = () => {
-    router.push('/dashboard/continue');
+    router.push("/dashboard/continue");
   };
 
   return (
@@ -64,13 +65,13 @@ export default function WorkspacePage() {
             <MultiSelect
               id="multiSelect"
               options={[
-                { label: 'AskReddit', value: 'optionA' },
-                { label: 'AmItheAsshole', value: 'optionB' },
-                { label: 'TrueOffMyChest', value: 'optionC' },
-                { label: 'entitledparents', value: 'optionD' },
-                { label: 'tifu', value: 'optionE' },
-                { label: 'relationship_advice', value: 'optionF' },
-                { label: 'pettyrevenge', value: 'optionG' },
+                { label: "AskReddit", value: "optionA" },
+                { label: "AmItheAsshole", value: "optionB" },
+                { label: "TrueOffMyChest", value: "optionC" },
+                { label: "entitledparents", value: "optionD" },
+                { label: "tifu", value: "optionE" },
+                { label: "relationship_advice", value: "optionF" },
+                { label: "pettyrevenge", value: "optionG" },
               ]}
               onValueChange={handleValueChange}
               placeholder="Select subreddits"
@@ -97,6 +98,8 @@ export default function WorkspacePage() {
               placeholder="Enter a username"
               id="inputTwo"
               className="w-[520px] h-[39px]"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
             />
           </div>
 
