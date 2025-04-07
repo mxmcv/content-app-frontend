@@ -13,7 +13,7 @@ function UpgradePlans() {
     try {
       const token = await getToken();
       const response = await fetch(
-        "http://18.218.45.35:3001/create-checkout-session",
+        "https://reddify.ca/api/create-checkout-session",
         {
           method: "POST",
           headers: {
