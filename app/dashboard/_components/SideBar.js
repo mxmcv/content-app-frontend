@@ -7,12 +7,13 @@ import React, { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { useAuth } from "@clerk/nextjs";
+import { useAppContext } from "@/app/_context/AppContext";
 
 function SideBar() {
   const path = usePathname();
   const { getToken } = useAuth();
   const [credits, setCredits] = useState({ current: 0, total: 50 });
-
+  const {isGenerating} = useAppContext();
   useEffect(() => {
     async function fetchCredits() {
       try {
@@ -35,7 +36,7 @@ function SideBar() {
       }
     }
     fetchCredits();
-  }, [getToken]);
+  }, [isGenerating, getToken]);
 
   const progressPercentage = Math.min(
     (credits.current / credits.total) * 100,

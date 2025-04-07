@@ -54,10 +54,11 @@ export default function ContinueWorkspacePage() {
     selectedFontColor,
     username,
     voice,
+    isGenerating,
+    setIsGenerating,
   } = useAppContext();
 
   const { getToken } = useAuth();
-  const [isGenerating, setIsGenerating] = useState(false);
 
   const handleGenerate = async () => {
     setIsGenerating(true);

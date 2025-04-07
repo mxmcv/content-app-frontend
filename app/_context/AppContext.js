@@ -10,6 +10,7 @@ export const AppProvider = ({ children }) => {
   const [selectedFontColor, setSelectedFontColor] = useState("white");
   const [username, setUsername] = useState("username");
   const [voice, setVoice] = useState("voice1");
+  const [isGenerating, setIsGenerating] = useState(false);
 
   return (
     <AppContext.Provider
@@ -26,6 +27,8 @@ export const AppProvider = ({ children }) => {
         setUsername,
         voice,
         setVoice,
+        isGenerating,
+        setIsGenerating,
       }}
     >
       {children}
