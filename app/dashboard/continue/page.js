@@ -12,6 +12,7 @@ import {
   SelectItem,
 } from "@/components/ui/select";
 import { useAppContext } from "@/app/_context/AppContext";
+import { useAuth } from "@clerk/nextjs";
 
 import localFont from "next/font/local";
 
@@ -62,7 +63,13 @@ export default function ContinueWorkspacePage() {
   const handleBack = () => {
     router.push("/dashboard/");
   };
+
+  const { getToken } = useAuth();
+
   const handleGenerate = async () => {
+    const token = await getToken();
+    // For debugging
+    console.log(token);
     const responselist = {
       user: "Username", // We need this
       story_data: redditPostUrl,
@@ -78,6 +85,7 @@ export default function ContinueWorkspacePage() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(responselist),
       });
