@@ -111,7 +111,7 @@ function UpgradePlans() {
                 href="#"
                 className="mt-8 block bg-white px-12 py-3 text-center text-sm font-medium text-[#FE4500] focus:outline-none focus:ring active:text-[#FE4500]"
               >
-                Current Plan
+                Upgrade Plan
               </a>
             </div>
             {/* Payment Box 2 */}
@@ -209,7 +209,7 @@ function UpgradePlans() {
                 href="#"
                 className="mt-8 block bg-white px-12 py-3 text-center text-sm font-medium text-[#FE4500] focus:outline-none focus:ring active:text-[#FE4500]"
               >
-                Current Plan
+                Upgrade Plan
               </a>
             </div>
           </div>

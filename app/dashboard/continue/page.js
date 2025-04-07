@@ -45,7 +45,6 @@ export default function ContinueWorkspacePage() {
   const [selectedGame, setSelectedGame] = useState('subway-surfers');
   const [selectedFont, setSelectedFont] = useState('Poppins-Bold');
   const [selectedFontColor, setSelectedFontColor] = useState('white');
-  const [isGenerating, setIsGenerating] = useState(false);
   const { redditPostUrl } = useAppContext();
   const router = useRouter();
 
@@ -64,7 +63,6 @@ export default function ContinueWorkspacePage() {
     router.push('/dashboard/');
   };
   const handleGenerate = async () => {
-    setIsGenerating(true);
     const responselist = {
       user: 'Username', // We need this
       story_data: redditPostUrl,
@@ -99,8 +97,6 @@ export default function ContinueWorkspacePage() {
       a.remove();
     } catch (error) {
       console.error('Error generating video:', error);
-    } finally {
-      setIsGenerating(false);
     }
   };
 
@@ -216,33 +212,7 @@ export default function ContinueWorkspacePage() {
         onClick={handleGenerate}
         className="text-lg fixed bottom-28 right-16 w-[200px] h-[45px]"
       >
-        {isGenerating ? (
-          <>
-            Generating
-            <svg
-              className="animate-spin ml-2 h-5 w-5"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-            >
-              <circle
-                className="opacity-25"
-                cx="12"
-                cy="12"
-                r="10"
-                stroke="currentColor"
-                strokeWidth="4"
-              ></circle>
-              <path
-                className="opacity-75"
-                fill="currentColor"
-                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
-              ></path>
-            </svg>
-          </>
-        ) : (
-          'Generate'
-        )}
+        Continue
       </Button>
       <Button
         variant="default"
