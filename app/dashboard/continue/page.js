@@ -81,7 +81,7 @@ export default function ContinueWorkspacePage() {
     };
 
     try {
-      const response = await fetch("http://127.0.0.1:3001/generate", {
+      const response = await fetch("http://18.218.45.35:3001/generate", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

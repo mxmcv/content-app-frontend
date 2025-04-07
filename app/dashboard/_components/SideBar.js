@@ -17,7 +17,7 @@ function SideBar() {
     async function fetchCredits() {
       try {
         const token = await getToken();
-        const response = await fetch("http://127.0.0.1:3001/credits", {
+        const response = await fetch("http://18.218.45.35:3001/credits", {
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
