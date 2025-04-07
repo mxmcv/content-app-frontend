@@ -37,7 +37,10 @@ function SideBar() {
     fetchCredits();
   }, [getToken]);
 
-  const progressPercentage = (credits.current / credits.total) * 100;
+  const progressPercentage = Math.min(
+    (credits.current / credits.total) * 100,
+    100
+  );
 
   return (
     <div className="shadow-md h-screen p-7 flex flex-col justify-between">
