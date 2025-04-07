@@ -1,41 +1,41 @@
-"use client";
+'use client';
 
-import React, { useState } from "react";
-import { useRouter } from "next/navigation";
-import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
+import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { Button } from '@/components/ui/button';
+import { Label } from '@/components/ui/label';
 import {
   Select,
   SelectTrigger,
   SelectValue,
   SelectContent,
   SelectItem,
-} from "@/components/ui/select";
-import { useAppContext } from "@/app/_context/AppContext";
+} from '@/components/ui/select';
+import { useAppContext } from '@/app/_context/AppContext';
 
-import localFont from "next/font/local";
+import localFont from 'next/font/local';
 
 const poppinsBold = localFont({
-  src: "../../fonts/Poppins-Bold.ttf", // Adjust path as needed
-  display: "swap",
-  variable: "--font-poppinsbold",
+  src: '../../fonts/Poppins-Bold.ttf', // Adjust path as needed
+  display: 'swap',
+  variable: '--font-poppinsbold',
 });
 
 const anton = localFont({
-  src: "../../fonts/anton.ttf",
-  display: "swap",
-  variable: "--font-anton",
+  src: '../../fonts/anton.ttf',
+  display: 'swap',
+  variable: '--font-anton',
 });
 
 const vagabondfed = localFont({
-  src: "../../fonts/Vagabondfed.ttf",
-  display: "swap",
-  variable: "--font-vagabondfed",
+  src: '../../fonts/Vagabondfed.ttf',
+  display: 'swap',
+  variable: '--font-vagabondfed',
 });
 
 // Map font names to their corresponding class names
 const fontMap = {
-  "Poppins-Bold": poppinsBold.className,
+  'Poppins-Bold': poppinsBold.className,
   Anton: anton.className,
   Vagabondfed: vagabondfed.className,
 };
@@ -66,11 +66,11 @@ export default function ContinueWorkspacePage() {
     setSelectedFontColor(value);
   };
   const handleBack = () => {
-    router.push("/dashboard/");
+    router.push('/dashboard/');
   };
 
   const handleGenerate = async () => {
-    router.push("/dashboard/generate/");
+    router.push('/dashboard/generate/');
   };
 
   return (
@@ -94,12 +94,10 @@ export default function ContinueWorkspacePage() {
                     <SelectValue placeholder="Select game" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="subway-surfers">
-                      Subway Surfers
-                    </SelectItem>
-                    <SelectItem value="temple-run">Temple Run</SelectItem>
+                    <SelectItem value="subway">Subway Surfers</SelectItem>
+                    <SelectItem value="temple">Temple Run</SelectItem>
                     <SelectItem value="minecraft">Minecraft</SelectItem>
-                    <SelectItem value="GTAV">GTA V</SelectItem>
+                    <SelectItem value="gta">GTA V</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
