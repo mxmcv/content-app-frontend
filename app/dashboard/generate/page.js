@@ -112,7 +112,7 @@ export default function ContinueWorkspacePage() {
         <div className="flex flex-col items-center mt-12">
           <div className="relative w-[220px] h-[440px]">
             <img
-              src={`/images/subway-surfers.png`}
+              src={`/images/${selectedGame}.png`}
               alt="Gameplay Preview"
               className="w-full h-full object-contain"
             />
