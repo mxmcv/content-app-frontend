@@ -24,7 +24,7 @@ function UpgradePlans() {
                 </h2>
                 <p className="mt-2 sm:mt-4">
                   <strong className="text-3xl font-bold text-gray-900 sm:text-4xl">
-                    $8.99
+                    $7.99
                   </strong>
                   <span className="text-sm font-medium text-gray-700">
                     /month
@@ -122,7 +122,7 @@ function UpgradePlans() {
                 </h2>
                 <p className="mt-2 sm:mt-4">
                   <strong className="text-3xl font-bold text-gray-900 sm:text-4xl">
-                    $24.99
+                    $19.99
                   </strong>
                   <span className="text-sm font-medium text-gray-700">
                     /month
