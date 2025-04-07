@@ -12,7 +12,7 @@ function UpgradePlans() {
     <div>
       <div className="p-6">
         <h2 className="font-medium text-3xl">Plans</h2>
-        <p>Placeholder placeholder placeholder</p>
+        <p>Upgrade your plan to start generating videos</p>
 
         <div className="mx-auto max-w-3xl px-4 py-8 mt-12 sm:px-6 sm:py-12 lg:px-8">
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:items-center md:gap-8">
@@ -20,11 +20,11 @@ function UpgradePlans() {
             <div className="rounded-2xl border border-gray-200 p-6 shadow-sm sm:px-8 lg:p-12">
               <div className="text-center">
                 <h2 className="text-lg font-medium text-gray-900">
-                  Free <span className="sr-only">Plan</span>
+                  Annual <span className="sr-only">Plan</span>
                 </h2>
                 <p className="mt-2 sm:mt-4">
                   <strong className="text-3xl font-bold text-gray-900 sm:text-4xl">
-                    $0
+                    $8.99
                   </strong>
                   <span className="text-sm font-medium text-gray-700">
                     /month
@@ -48,7 +48,9 @@ function UpgradePlans() {
                       d="M4.5 12.75l6 6 9-13.5"
                     />
                   </svg>
-                  <span className="text-gray-700">Placeholder</span>
+                  <span className="text-gray-700">
+                    Receive 50 credits monthly
+                  </span>
                 </li>
                 <li className="flex items-center gap-1">
                   <svg
@@ -65,7 +67,7 @@ function UpgradePlans() {
                       d="M4.5 12.75l6 6 9-13.5"
                     />
                   </svg>
-                  <span className="text-gray-700">Placeholder</span>
+                  <span className="text-gray-700">Unlock all backgrounds</span>
                 </li>
                 <li className="flex items-center gap-1">
                   <svg
@@ -82,7 +84,7 @@ function UpgradePlans() {
                       d="M4.5 12.75l6 6 9-13.5"
                     />
                   </svg>
-                  <span className="text-gray-700">Placeholder</span>
+                  <span className="text-gray-700">Unlock all voices</span>
                 </li>
                 <li className="flex items-center gap-1">
                   <svg
@@ -99,7 +101,9 @@ function UpgradePlans() {
                       d="M4.5 12.75l6 6 9-13.5"
                     />
                   </svg>
-                  <span className="text-gray-700">Placeholder</span>
+                  <span className="text-gray-700">
+                    Early access to new features
+                  </span>
                 </li>
               </ul>
 
@@ -114,11 +118,11 @@ function UpgradePlans() {
             <div className="rounded-2xl border border-gray-200 p-6 shadow-sm sm:px-8 lg:p-12">
               <div className="text-center">
                 <h2 className="text-lg font-medium text-gray-900">
-                  Free <span className="sr-only">Plan</span>
+                  Monthly <span className="sr-only">Plan</span>
                 </h2>
                 <p className="mt-2 sm:mt-4">
                   <strong className="text-3xl font-bold text-gray-900 sm:text-4xl">
-                    $0
+                    $24.99
                   </strong>
                   <span className="text-sm font-medium text-gray-700">
                     /month
@@ -142,7 +146,9 @@ function UpgradePlans() {
                       d="M4.5 12.75l6 6 9-13.5"
                     />
                   </svg>
-                  <span className="text-gray-700">Placeholder</span>
+                  <span className="text-gray-700">
+                    Receive 50 credits monthly
+                  </span>
                 </li>
                 <li className="flex items-center gap-1">
                   <svg
@@ -159,7 +165,7 @@ function UpgradePlans() {
                       d="M4.5 12.75l6 6 9-13.5"
                     />
                   </svg>
-                  <span className="text-gray-700">Placeholder</span>
+                  <span className="text-gray-700">Unlock all backgrounds</span>
                 </li>
                 <li className="flex items-center gap-1">
                   <svg
@@ -176,7 +182,7 @@ function UpgradePlans() {
                       d="M4.5 12.75l6 6 9-13.5"
                     />
                   </svg>
-                  <span className="text-gray-700">Placeholder</span>
+                  <span className="text-gray-700">Unlock all voices</span>
                 </li>
                 <li className="flex items-center gap-1">
                   <svg
@@ -193,7 +199,9 @@ function UpgradePlans() {
                       d="M4.5 12.75l6 6 9-13.5"
                     />
                   </svg>
-                  <span className="text-gray-700">Placeholder</span>
+                  <span className="text-gray-700">
+                    Early access to new features
+                  </span>
                 </li>
               </ul>
 
