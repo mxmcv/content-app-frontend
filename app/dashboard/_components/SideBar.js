@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import { Progress } from "@/components/ui/progress";
-import { Layout, Shield } from "lucide-react";
-import Image from "next/image";
-import React, { useState, useEffect } from "react";
-import { usePathname } from "next/navigation";
-import Link from "next/link";
-import { useAuth } from "@clerk/nextjs";
+import { Progress } from '@/components/ui/progress';
+import { Layout, Shield } from 'lucide-react';
+import Image from 'next/image';
+import React, { useState, useEffect } from 'react';
+import { usePathname } from 'next/navigation';
+import Link from 'next/link';
+import { useAuth } from '@clerk/nextjs';
 
 function SideBar() {
   const path = usePathname();
@@ -17,21 +17,21 @@ function SideBar() {
     async function fetchCredits() {
       try {
         const token = await getToken();
-        const response = await fetch("http://18.218.45.35:3001/credits", {
+        const response = await fetch('http://18.218.45.35:3001/credits', {
           headers: {
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json',
             Authorization: `Bearer ${token}`,
           },
         });
         if (!response.ok) {
-          console.error("Failed to fetch credits:", response.statusText);
+          console.error('Failed to fetch credits:', response.statusText);
           return;
         }
         const data = await response.json();
         // data.credits should be the current credits value from your backend
         setCredits({ current: data.credits, total: 50 });
       } catch (error) {
-        console.error("Error fetching credits:", error);
+        console.error('Error fetching credits:', error);
       }
     }
     fetchCredits();
@@ -42,12 +42,18 @@ function SideBar() {
   return (
     <div className="shadow-md h-screen p-7 flex flex-col justify-between">
       <div>
-        <Image src="/logo.svg" alt="logo" width={170} height={120} />
+        <Image
+          src="/logo.png"
+          alt="logo"
+          width={180}
+          height={132}
+          className="pl-2"
+        />
         <div className="mt-10">
           <Link href="/dashboard">
             <div
               className={`flex gap-2 items-center p-3 mt-5 hover:bg-gray-200 rounded-lg cursor-pointer ${
-                path === "/dashboard" && "bg-gray-100"
+                path === '/dashboard' && 'bg-gray-100'
               }`}
             >
               <Layout />
@@ -57,7 +63,7 @@ function SideBar() {
           <Link href="/dashboard/upgrade">
             <div
               className={`flex gap-2 items-center p-3 mt-1 hover:bg-gray-200 rounded-lg cursor-pointer ${
-                path === "/dashboard/upgrade" && "bg-gray-100"
+                path === '/dashboard/upgrade' && 'bg-gray-100'
               }`}
             >
               <Shield />
