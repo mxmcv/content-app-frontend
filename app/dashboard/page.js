@@ -18,7 +18,12 @@ export default function WorkspacePage() {
 
   const handleValueChange = (values) => {
     setSelectedValues(values);
-    console.log(selectedValues);
+    if (values && values.length > 0) {
+      setRedditPostUrl(values);
+    } else {
+      setRedditPostUrl("");
+    }
+    console.log("Selected subreddits:", values);
   };
 
   const handleContinue = () => {
@@ -45,8 +50,8 @@ export default function WorkspacePage() {
               placeholder="Enter URL"
               id="inputOne"
               className="w-[520px] h-[39px]"
-              disabled={selectedValues.length > 0} // disable URL if subreddits are selected
-              value={redditPostUrl}
+              disabled={Array.isArray(redditPostUrl) && redditPostUrl.length > 0} // disable URL if subreddits are selected
+              value={typeof redditPostUrl === "string" ? redditPostUrl : ""}
               onChange={(e) => setRedditPostUrl(e.target.value)}
             />
           </div>
@@ -65,13 +70,13 @@ export default function WorkspacePage() {
             <MultiSelect
               id="multiSelect"
               options={[
-                { label: "AskReddit", value: "optionA" },
-                { label: "AmItheAsshole", value: "optionB" },
-                { label: "TrueOffMyChest", value: "optionC" },
-                { label: "entitledparents", value: "optionD" },
-                { label: "tifu", value: "optionE" },
-                { label: "relationship_advice", value: "optionF" },
-                { label: "pettyrevenge", value: "optionG" },
+                { label: "AskReddit", value: "askreddit" },
+                { label: "AmItheAsshole", value: "amitheasshole" },
+                { label: "TrueOffMyChest", value: "trueoffmychest" },
+                { label: "entitledparents", value: "entitledparents" },
+                { label: "tifu", value: "tifu" },
+                { label: "relationship_advice", value: "relationship_advice" },
+                { label: "pettyrevenge", value: "pettyrevenge" },
               ]}
               onValueChange={handleValueChange}
               placeholder="Select subreddits"
@@ -79,7 +84,7 @@ export default function WorkspacePage() {
               animation={0.3}
               variant="default"
               className="w-[520px] h-[39px]"
-              disabled={redditPostUrl.trim().length > 0} // disable subreddits if URL has a value
+              disabled={typeof redditPostUrl === "string" && redditPostUrl.trim().length > 0} // disable subreddits if URL has a value
             />
           </div>
 

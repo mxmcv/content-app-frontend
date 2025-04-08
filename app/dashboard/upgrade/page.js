@@ -1,11 +1,40 @@
-'use client';
-import React from 'react';
+"use client";
+import React from "react";
+import { loadStripe } from "@stripe/stripe-js";
+import { useAuth } from "@clerk/nextjs";
+
+const stripePromise = loadStripe(
+  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
+);
 
 function UpgradePlans() {
-  // Placeholder onUpgrade function
-  const onUpgrade = () => {
-    console.log('Upgrade plan triggered');
-    alert('Plan upgraded successfully');
+  const { getToken } = useAuth();
+  const handleCheckout = async (plan) => {
+    try {
+      const token = await getToken();
+      const response = await fetch(
+        "https://reddify.ca/api/create-checkout-session",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({ plan }),
+        }
+      );
+
+      const { sessionId } = await response.json();
+      if (!sessionId) throw new Error("No session ID returned");
+
+      const stripe = await stripePromise;
+      const { error } = await stripe.redirectToCheckout({ sessionId });
+      if (error) {
+        console.error("Stripe redirect error:", error);
+      }
+    } catch (err) {
+      console.error("Error creating checkout session:", err);
+    }
   };
 
   return (
@@ -107,12 +136,13 @@ function UpgradePlans() {
                 </li>
               </ul>
 
-              <a
+              <button
+                onClick={() => handleCheckout("annual")}
                 href="#"
                 className="mt-8 block bg-white px-12 py-3 text-center text-sm font-medium text-[#FE4500] focus:outline-none focus:ring active:text-[#FE4500]"
               >
                 Upgrade Plan
-              </a>
+              </button>
             </div>
             {/* Payment Box 2 */}
             <div className="rounded-2xl border border-gray-200 p-6 shadow-sm sm:px-8 lg:p-12">
@@ -205,12 +235,13 @@ function UpgradePlans() {
                 </li>
               </ul>
 
-              <a
+              <button
+                onClick={() => handleCheckout("monthly")}
                 href="#"
                 className="mt-8 block bg-white px-12 py-3 text-center text-sm font-medium text-[#FE4500] focus:outline-none focus:ring active:text-[#FE4500]"
               >
                 Upgrade Plan
-              </a>
+              </button>
             </div>
           </div>
         </div>
