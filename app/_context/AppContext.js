@@ -8,7 +8,7 @@ export const AppProvider = ({ children }) => {
   const [selectedGame, setSelectedGame] = useState("subway");
   const [selectedFont, setSelectedFont] = useState("Poppins-Bold");
   const [selectedFontColor, setSelectedFontColor] = useState("white");
-  const [username, setUsername] = useState("username");
+  const [username, setUsername] = useState("");
   const [voice, setVoice] = useState("voice1");
   const [isGenerating, setIsGenerating] = useState(false);
 
