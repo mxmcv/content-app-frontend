@@ -1,9 +1,10 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
+import IntroImage from "../_components/IntroImage";
 import {
   Select,
   SelectTrigger,
@@ -59,6 +60,44 @@ export default function ContinueWorkspacePage() {
   } = useAppContext();
 
   const { getToken } = useAuth();
+
+  const [redditTitle, setRedditTitle] = useState("");
+  const [isValidRedditUrl, setIsValidRedditUrl] = useState(false);
+
+  useEffect(() => {
+    async function fetchRedditTitle() {
+      try {
+        // Ensure redditPostUrl exists before fetching
+        if (!redditPostUrl || Array.isArray(redditPostUrl)) {
+          setIsValidRedditUrl(false);
+          return;
+        }
+        setIsValidRedditUrl(true);
+
+        const token = await getToken();
+        const response = await fetch(
+          `https://reddify.ca/api/reddit-post-title?url=${encodeURIComponent(redditPostUrl)}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error(`Server responded with ${response.status}`);
+        }
+        const data = await response.json();
+        setRedditTitle(data.title);
+      } catch (error) {
+        console.error("Error fetching Reddit title:", error.message);
+      }
+    }
+
+    fetchRedditTitle();
+  }, [redditPostUrl, getToken]);
 
   const handleGenerate = async () => {
     setIsGenerating(true);
@@ -116,7 +155,18 @@ export default function ContinueWorkspacePage() {
               alt="Gameplay Preview"
               className="w-full h-full object-contain"
             />
+            {isValidRedditUrl && redditTitle && (
+              <div className="absolute top-1/4 left-1/2 transform -translate-x-[109px]">
+                <div className="transform scale-50 origin-bottom">
+                  <IntroImage
+                    username={useAppContext().username}
+                    postText={redditTitle}
+                  />
+                </div>
+              </div>
+            )}
           </div>
+
           <div className="mt-12 flex space-x-6">
             <Button
               variant="default"
