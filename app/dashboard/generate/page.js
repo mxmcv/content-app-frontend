@@ -1,42 +1,43 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { Button } from '@/components/ui/button';
-import { Label } from '@/components/ui/label';
+import React, { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
+import IntroImage from "../_components/IntroImage";
 import {
   Select,
   SelectTrigger,
   SelectValue,
   SelectContent,
   SelectItem,
-} from '@/components/ui/select';
-import { useAppContext } from '@/app/_context/AppContext';
-import { useAuth } from '@clerk/nextjs';
+} from "@/components/ui/select";
+import { useAppContext } from "@/app/_context/AppContext";
+import { useAuth } from "@clerk/nextjs";
 
-import localFont from 'next/font/local';
+import localFont from "next/font/local";
 
 const poppinsBold = localFont({
-  src: '../../fonts/Poppins-Bold.ttf', // Adjust path as needed
-  display: 'swap',
-  variable: '--font-poppinsbold',
+  src: "../../fonts/Poppins-Bold.ttf", // Adjust path as needed
+  display: "swap",
+  variable: "--font-poppinsbold",
 });
 
 const anton = localFont({
-  src: '../../fonts/anton.ttf',
-  display: 'swap',
-  variable: '--font-anton',
+  src: "../../fonts/anton.ttf",
+  display: "swap",
+  variable: "--font-anton",
 });
 
 const vagabondfed = localFont({
-  src: '../../fonts/Vagabondfed.ttf',
-  display: 'swap',
-  variable: '--font-vagabondfed',
+  src: "../../fonts/Vagabondfed.ttf",
+  display: "swap",
+  variable: "--font-vagabondfed",
 });
 
 // Map font names to their corresponding class names
 const fontMap = {
-  'Poppins-Bold': poppinsBold.className,
+  "Poppins-Bold": poppinsBold.className,
   Anton: anton.className,
   Vagabondfed: vagabondfed.className,
 };
@@ -44,7 +45,7 @@ const fontMap = {
 export default function ContinueWorkspacePage() {
   const router = useRouter();
   const handleBack = () => {
-    router.push('/dashboard/');
+    router.push("/dashboard/");
   };
 
   const {
@@ -54,10 +55,49 @@ export default function ContinueWorkspacePage() {
     selectedFontColor,
     username,
     voice,
+    isGenerating,
+    setIsGenerating,
   } = useAppContext();
 
   const { getToken } = useAuth();
-  const [isGenerating, setIsGenerating] = useState(false);
+
+  const [redditTitle, setRedditTitle] = useState("");
+  const [isValidRedditUrl, setIsValidRedditUrl] = useState(false);
+
+  useEffect(() => {
+    async function fetchRedditTitle() {
+      try {
+        // Ensure redditPostUrl exists before fetching
+        if (!redditPostUrl || Array.isArray(redditPostUrl)) {
+          setIsValidRedditUrl(false);
+          return;
+        }
+        setIsValidRedditUrl(true);
+
+        const token = await getToken();
+        const response = await fetch(
+          `https://reddify.ca/api/reddit-post-title?url=${encodeURIComponent(redditPostUrl)}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error(`Server responded with ${response.status}`);
+        }
+        const data = await response.json();
+        setRedditTitle(data.title);
+      } catch (error) {
+        console.error("Error fetching Reddit title:", error.message);
+      }
+    }
+
+    fetchRedditTitle();
+  }, [redditPostUrl, getToken]);
 
   const handleGenerate = async () => {
     setIsGenerating(true);
@@ -73,30 +113,30 @@ export default function ContinueWorkspacePage() {
     };
 
     try {
-      const response = await fetch('http://18.218.45.35:3001/generate', {
-        method: 'POST',
+      const response = await fetch("https://reddify.ca/api/generate", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(responselist),
       });
 
       if (!response.ok) {
-        throw new Error('Network response was not ok');
+        throw new Error("Network response was not ok");
       }
 
       // Will have to change this maybe
       const blob = await response.blob();
       const url = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
+      const a = document.createElement("a");
       a.href = url;
-      a.download = 'video.mp4';
+      a.download = "video.mp4";
       document.body.appendChild(a);
       a.click();
       a.remove();
     } catch (error) {
-      console.error('Error generating video:', error);
+      console.error("Error generating video:", error);
     } finally {
       setIsGenerating(false);
     }
@@ -111,11 +151,22 @@ export default function ContinueWorkspacePage() {
         <div className="flex flex-col items-center mt-12">
           <div className="relative w-[220px] h-[440px]">
             <img
-              src={`/images/subway-surfers.png`}
+              src={`/images/${selectedGame}.png`}
               alt="Gameplay Preview"
               className="w-full h-full object-contain"
             />
+            {isValidRedditUrl && redditTitle && (
+              <div className="absolute top-1/4 left-1/2 transform -translate-x-[109px]">
+                <div className="transform scale-50 origin-bottom">
+                  <IntroImage
+                    username={useAppContext().username}
+                    postText={redditTitle}
+                  />
+                </div>
+              </div>
+            )}
           </div>
+
           <div className="mt-12 flex space-x-6">
             <Button
               variant="default"
@@ -155,7 +206,7 @@ export default function ContinueWorkspacePage() {
                   </svg>
                 </>
               ) : (
-                'Generate'
+                "Generate"
               )}
             </Button>
           </div>
