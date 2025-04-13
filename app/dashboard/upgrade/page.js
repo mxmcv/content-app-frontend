@@ -1,7 +1,7 @@
-"use client";
-import React from "react";
-import { loadStripe } from "@stripe/stripe-js";
-import { useAuth } from "@clerk/nextjs";
+'use client';
+import React from 'react';
+import { loadStripe } from '@stripe/stripe-js';
+import { useAuth } from '@clerk/nextjs';
 
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
@@ -13,11 +13,11 @@ function UpgradePlans() {
     try {
       const token = await getToken();
       const response = await fetch(
-        "https://reddify.ca/api/create-checkout-session",
+        'https://reddify.ca/api/create-checkout-session',
         {
-          method: "POST",
+          method: 'POST',
           headers: {
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json',
             Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify({ plan }),
@@ -25,15 +25,15 @@ function UpgradePlans() {
       );
 
       const { sessionId } = await response.json();
-      if (!sessionId) throw new Error("No session ID returned");
+      if (!sessionId) throw new Error('No session ID returned');
 
       const stripe = await stripePromise;
       const { error } = await stripe.redirectToCheckout({ sessionId });
       if (error) {
-        console.error("Stripe redirect error:", error);
+        console.error('Stripe redirect error:', error);
       }
     } catch (err) {
-      console.error("Error creating checkout session:", err);
+      console.error('Error creating checkout session:', err);
     }
   };
 
@@ -137,7 +137,7 @@ function UpgradePlans() {
               </ul>
 
               <button
-                onClick={() => handleCheckout("annual")}
+                onClick={() => handleCheckout('annual')}
                 href="#"
                 className="mt-8 block bg-white px-12 py-3 text-center text-sm font-medium text-[#FE4500] focus:outline-none focus:ring active:text-[#FE4500]"
               >
@@ -221,22 +221,22 @@ function UpgradePlans() {
                     viewBox="0 0 24 24"
                     strokeWidth="1.5"
                     stroke="currentColor"
-                    className="w-5 h-5 text-[#FE4500]"
+                    className="w-5 h-5 text-gray-400"
                   >
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
-                      d="M4.5 12.75l6 6 9-13.5"
+                      d="M6 18L18 6M6 6l12 12"
                     />
                   </svg>
-                  <span className="text-gray-700">
+                  <span className="text-gray-400">
                     Early access to new features
                   </span>
                 </li>
               </ul>
 
               <button
-                onClick={() => handleCheckout("monthly")}
+                onClick={() => handleCheckout('monthly')}
                 href="#"
                 className="mt-8 block bg-white px-12 py-3 text-center text-sm font-medium text-[#FE4500] focus:outline-none focus:ring active:text-[#FE4500]"
               >
